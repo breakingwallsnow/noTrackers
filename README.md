@@ -1,13 +1,17 @@
 # noTrackers Android App
 
-A simple Android app that removes tracking parameters from URLs when sharing content.
+A privacy-focused Android app that removes tracking parameters from URLs and unwraps redirector links. Features a sleek matte black/silver theme designed for privacy-conscious users.
 
 ## Features
 
-- Appears in the Android share menu for any text/URL content
-- Automatically removes common tracking parameters (utm_*, fbclid, gclid, etc.)
-- Clean, simple interface with Copy and Share buttons
-- Protects your privacy by removing tracking data from shared URLs
+- **Share Menu Integration**: Appears in Android share menu for any text/URL content
+- **Standalone App**: Can be opened directly from app drawer for manual URL cleaning
+- **Comprehensive Tracking Removal**: Removes 100+ tracking parameters across major platforms
+- **Redirector Unwrapping**: Automatically extracts real URLs from Facebook, Google, Reddit, LinkedIn, and other redirector services
+- **Domain-Specific Rules**: Intelligent parameter filtering that preserves legitimate functionality (e.g., YouTube video IDs, GitHub refs)
+- **URL Normalization**: Converts YouTube shorts to watch URLs, normalizes Amazon product links, removes AMP indicators
+- **Sleek UI**: Matte black background with silver accents and cyan highlights
+- **Privacy-First**: All processing happens locally on your device, no internet required
 
 ## How to Build and Install
 
@@ -46,46 +50,79 @@ A simple Android app that removes tracking parameters from URLs when sharing con
 
 ## How to Use
 
+### Via Share Menu
 1. When you want to share a URL from any app (browser, social media, etc.)
 2. Tap the "Share" button
 3. Select "noTrackers" from the share menu
-4. The app will automatically clean the URL by removing tracking parameters
-5. You can then:
-   - **Copy** the cleaned URL to clipboard
-   - **Share** the cleaned URL using your regular sharing apps (WhatsApp, Signal, etc.)
+4. The app automatically cleans the URL and displays it
+5. Use the **Copy** or **Share** buttons to use the cleaned URL
+
+### Standalone Mode
+1. Open noTrackers from your app drawer
+2. Paste or enter a URL in the input field
+3. Tap "Secure my privacy" to clean the URL
+4. Use the refresh button to clear and start over
+
+### Additional Options
+- **Copy URL**: Copy the cleaned URL to clipboard
+- **Share**: Share the cleaned URL with optional promotional text
+- **Report Error**: Send feedback if a URL wasn't cleaned correctly
 
 ## Supported Tracking Parameters
 
-The app removes common tracking parameters including:
-- Google Analytics: utm_source, utm_medium, utm_campaign, utm_term, utm_content
-- Facebook: fbclid
-- Google Ads: gclid
-- Microsoft: msclkid
-- Twitter: twclid
-- LinkedIn: li_fat_id
-- Instagram: igshid, igsh
-- Mailchimp: mc_cid, mc_eid
-- And many more...
+The app removes tracking parameters using comprehensive global and domain-specific rules:
+
+### Global Parameters (All Sites)
+- Google Analytics: `utm_*` variants, `_ga`, `ga_*`
+- Facebook: `fbclid`, `fb_*`, `_fb`
+- Google Ads: `gclid`, `dclid`, `gbraid`, `wbraid`
+- Microsoft: `msclkid`
+- Twitter/X: `twclid`
+- TikTok: `ttclid`
+- Instagram: `igshid`, `ig_rid`
+- Mailchimp: `mc_cid`, `mc_eid`
+- HubSpot: `_hsenc`, `_hsmi`, `hs_*`
+- And 50+ more tracking parameters
+
+### Domain-Specific Rules
+- **YouTube**: Removes tracking while preserving video IDs, timestamps, playlists
+- **Instagram**: Removes tracking, cleans trailing slashes
+- **Amazon**: Removes affiliate tags while preserving product identifiers
+- **GitHub/GitLab**: Preserves `ref` and `at` parameters (functional for repos)
+- **News Sites**: Removes tracking while preserving article links
+- **And 20+ more platforms** with intelligent parameter handling
+
+### Redirector Unwrapping
+Automatically extracts real URLs from:
+- Facebook (`l.facebook.com`, `lm.facebook.com`)
+- Google (`google.com/url`, `google.com/imgres`)
+- Reddit (`out.reddit.com`)
+- LinkedIn (`lnkd.in`, safety redirects)
+- Medium, Hacker News, DuckDuckGo, Slack, and mail/newsletter redirectors
 
 ## Project Structure
 
 ```
 noTrackers/
-├── AndroidManifest.xml          # App configuration and share intent handling
 ├── app/
-│   ├── build.gradle             # App-level build configuration
 │   ├── src/main/
+│   │   ├── AndroidManifest.xml   # App configuration and intents
 │   │   ├── java/com/notrackers/app/
-│   │   │   └── MainActivity.java # Main app logic
+│   │   │   ├── MainActivity.java # Main activity and UI logic
+│   │   │   └── UrlCleaner.java  # Core URL cleaning engine
 │   │   └── res/
 │   │       ├── layout/
 │   │       │   └── activity_main.xml # UI layout
-│   │       └── values/
-│   │           └── strings.xml   # App strings
+│   │       ├── values/
+│   │       │   ├── colors.xml    # Theme color definitions
+│   │       │   └── strings.xml   # App strings
+│   │       └── drawable/         # Theme drawables (buttons, backgrounds)
+│   ├── build.gradle              # App-level build configuration
 │   └── proguard-rules.pro       # Code obfuscation rules
 ├── build.gradle                 # Project-level build configuration
 ├── settings.gradle              # Project settings
 ├── gradle.properties            # Gradle properties
+├── THEME_README.md              # Theme documentation for reuse
 └── gradlew.bat                  # Gradle wrapper for Windows
 ```
 
