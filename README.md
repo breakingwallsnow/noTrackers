@@ -13,6 +13,14 @@ A privacy-focused Android app that removes tracking parameters from URLs and unw
 - **Sleek UI**: Matte black background with silver accents and cyan highlights
 - **Privacy-First**: All processing happens locally on your device, no internet required
 
+## Screenshots
+
+<div align="center">
+  <img src="images/screenshot-1.png" alt="Screenshot 1" width="300"/>
+  <img src="images/screenshot-2.png" alt="Screenshot 2" width="300"/>
+  <img src="images/screenshot-3.png" alt="Screenshot 3" width="300"/>
+</div>
+
 ## How to Build and Install
 
 ### Prerequisites
